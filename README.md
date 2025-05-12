@@ -1,4 +1,4 @@
-# GravyJS
+# GravyJS [WIP: Not Yet Working]
 
 A powerful, customizable WYSIWYG editor component for React and NextJS applications with support for variables, snippets, and rich text formatting.
 
