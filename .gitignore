@@ -1,0 +1,330 @@
+# ===================================
+# Node.js and NPM
+# ===================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+
+# ===================================
+# Build Outputs
+# ===================================
+dist/
+build/
+lib/
+*.tsbuildinfo
+
+# ===================================
+# Testing
+# ===================================
+coverage/
+*.lcov
+.nyc_output
+.coverage
+*.coverage
+
+# ===================================
+# Environment Variables
+# ===================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ===================================
+# IDE and Editors
+# ===================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Atom
+.atom/
+
+# ===================================
+# Operating System
+# ===================================
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===================================
+# Development Tools
+# ===================================
+.rollup.cache/
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Webpack
+webpack-stats.json
+
+# Rollup
+.rollup.cache
+
+# Storybook
+.storybook/build/
+.out/
+build-storybook.log
+
+# ===================================
+# TypeScript
+# ===================================
+*.tsbuildinfo
+
+# ===================================
+# Runtime data
+# ===================================
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ===================================
+# Logs
+# ===================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ===================================
+# Temporary folders
+# ===================================
+.tmp/
+.temp/
+tmp/
+temp/
+
+# ===================================
+# Optional npm cache directory
+# ===================================
+.npm
+
+# ===================================
+# Demo specific (if applicable)
+# ===================================
+demo/node_modules/
+demo/dist/
+demo/.env
+demo/.env.local
+
+# ===================================
+# Documentation generation
+# ===================================
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# ===================================
+# ESLint cache
+# ===================================
+.eslintcache
+
+# ===================================
+# Prettier cache
+# ===================================
+.prettierignore
+
+# ===================================
+# Stylelint cache
+# ===================================
+.stylelintcache
+
+# ===================================
+# Zero-installs (Yarn)
+# ===================================
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# ===================================
+# Microbundle cache
+# ===================================
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# ===================================
+# Optional cache directories
+# ===================================
+.next/
+out/
+
+# ===================================
+# Serverless
+# ===================================
+.serverless/
+
+# ===================================
+# FuseBox cache
+# ===================================
+.fusebox/
+
+# ===================================
+# DynamoDB Local files
+# ===================================
+.dynamodb/
+
+# ===================================
+# TernJS port file
+# ===================================
+.tern-port
+
+# ===================================
+# Husky
+# ===================================
+.husky/_
+
+# ===================================
+# Size Limit
+# ===================================
+.size-limit.json
+
+# ===================================
+# Rush Stack
+# ===================================
+.rush/
+
+# ===================================
+# Verdaccio (local npm registry)
+# ===================================
+verdaccio.db
+
+# ===================================
+# NPM package specific
+# ===================================
+*.tgz
+
+# ===================================
+# JetBrains Rider
+# ===================================
+.idea/
+
+# ===================================
+# VS Code workspace
+# ===================================
+*.code-workspace
+
+# ===================================
+# Local History for Visual Studio Code
+# ===================================
+.history/
+
+# ===================================
+# Built Visual Studio Code Extensions
+# ===================================
+*.vsix
+
+# ===================================
+# Figma files
+# ===================================
+*.fig
+
+# ===================================
+# Vagrant
+# ===================================
+.vagrant/
+
+# ===================================
+# Docker
+# ===================================
+*.dockerignore
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+
+# ===================================
+# Backup files
+# ===================================
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+
+# ===================================
+# Archive files
+# ===================================
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# ===================================
+# Database files
+# ===================================
+*.sqlite
+*.db
+
+
+# ===================================
+# Git files
+# ===================================
+.git/
