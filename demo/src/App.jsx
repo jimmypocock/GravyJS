@@ -36,6 +36,7 @@ function App() {
   const editorRef = useRef(null);
 
   const handlePopulateVariables = async () => {
+    debugger;
     if (editorRef.current) {
       const result = await editorRef.current.populateVariables();
 

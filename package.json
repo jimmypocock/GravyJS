@@ -3,16 +3,19 @@
   "version": "1.0.0",
   "description": "A WYSIWYG editor for React/NextJS applications",
   "main": "dist/index.js",
+  "type": "module",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c && npm run build:types",
+    "build:watch": " rollup -c --watch && npm run build:types",
     "build:types": "cp src/index.d.ts dist/index.d.ts",
     "test": "jest",
     "prepublishOnly": "npm test && npm run build",
     "demo:install": "cd demo && npm install",
     "demo:link": "npm link && cd demo && npm link gravy-js",
-    "dev": "cd demo && npm run dev"
+    "dev": "concurrently --names \"gravyjs, demo\" --prefix-colors \"blue.bold,green.bold\"  \"npm run build:watch\" \"npm run dev:demo\"",
+    "dev:demo": "cd demo && npm run dev"
   },
   "dependencies": {
     "react": ">=16.8.0",
@@ -34,6 +37,7 @@
     "@testing-library/user-event": "^14.6.1",
     "babel-jest": "^29.7.0",
     "babel-loader": "^10.0.0",
+    "concurrently": "^9.1.2",
     "css-loader": "^7.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
