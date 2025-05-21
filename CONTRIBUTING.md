@@ -9,7 +9,7 @@ By participating in this project, you agree to abide by our Code of Conduct (lin
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/gravy-js.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/gravyjs.git`
 3. Install dependencies: `npm install`
 4. Create a branch: `git checkout -b your-feature-branch`
 

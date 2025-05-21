@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
-import GravyJS from 'gravy-js'
-import 'gravy-js/dist/index.css'
+import GravyJS from 'gravyjs'
+import 'gravyjs/dist/index.css'
 import './App.css'
 
 const sampleSnippets = [

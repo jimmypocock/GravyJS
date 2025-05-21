@@ -7,16 +7,16 @@
 - [ ] **Complete package.json** with all required fields:
   ```json
   {
-    "name": "gravy-js",
+    "name": "gravyjs",
     "version": "1.0.0",
     "description": "WYSIWYG editor with configurable variables and snippets",
     "main": "dist/index.js",
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "files": ["dist", "README.md", "LICENSE"],
-    "repository": "github:yourusername/gravy-js",
-    "homepage": "https://github.com/yourusername/gravy-js",
-    "bugs": "https://github.com/yourusername/gravy-js/issues",
+    "repository": "github:yourusername/gravyjs",
+    "homepage": "https://github.com/yourusername/gravyjs",
+    "bugs": "https://github.com/yourusername/gravyjs/issues",
     "keywords": ["react", "editor", "wysiwyg", "variables", "templates"]
   }
   ```
@@ -86,7 +86,7 @@
 - [ ] **Add security scanning** (Dependabot, Snyk)
 - [ ] **Configure .npmignore** properly
 - [ ] **Remove sensitive data** from repository
-- [ ] **Use scoped packages** if needed (@yourorg/gravy-js)
+- [ ] **Use scoped packages** if needed (@yourorg/gravyjs)
 
 ### 8. Performance & Optimization
 - [ ] **Bundle size analysis** and optimization

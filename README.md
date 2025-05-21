@@ -17,17 +17,17 @@ A powerful, customizable WYSIWYG editor component for React and NextJS applicati
 ## 🚀 Installation
 
 ```bash
-npm install gravy-js
+npm install gravyjs
 # or
-yarn add gravy-js
+yarn add gravyjs
 ```
 
 ## 📖 Quick Start
 
 ```jsx
 import React, { useState, useRef } from 'react';
-import GravyJS from 'gravy-js';
-import 'gravy-js/dist/index.css';
+import GravyJS from 'gravyjs';
+import 'gravyjs/dist/index.css';
 
 function App() {
   const [content, setContent] = useState('');
@@ -156,8 +156,8 @@ if (result) {
 
 1. **Clone and setup**:
 ```bash
-git clone https://github.com/yourusername/gravy-js.git
-cd gravy-js
+git clone https://github.com/yourusername/gravyjs.git
+cd gravyjs
 npm install
 ```
 
@@ -175,7 +175,7 @@ npm install --save-dev vite @vitejs/plugin-react
 # From project root
 npm link
 cd demo
-npm link gravy-js
+npm link gravyjs
 ```
 
 4. **Start demo server**:
@@ -241,7 +241,7 @@ The demo includes:
 // pages/editor.js
 import dynamic from 'next/dynamic';
 
-const GravyJS = dynamic(() => import('gravy-js'), {
+const GravyJS = dynamic(() => import('gravyjs'), {
   ssr: false // Disable SSR for the editor
 });
 
@@ -354,9 +354,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/gravy-js/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/gravy-js/discussions)
-- 📚 **Documentation**: [https://gravy-js.dev](https://gravy-js.dev)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/gravyjs/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/gravyjs/discussions)
+- 📚 **Documentation**: [https://gravyjs.dev](https://gravyjs.dev)
 
 ---
 

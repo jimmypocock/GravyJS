@@ -1,5 +1,5 @@
 {
-  "name": "gravy-js",
+  "name": "gravyjs",
   "version": "1.0.0",
   "description": "A WYSIWYG editor for React/NextJS applications",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
     "test": "jest",
     "prepublishOnly": "npm test && npm run build",
     "demo:install": "cd demo && npm install",
-    "demo:link": "npm link && cd demo && npm link gravy-js",
+    "demo:link": "npm link && cd demo && npm link gravyjs",
     "dev": "concurrently --names \"gravyjs, demo\" --prefix-colors \"blue.bold,green.bold\"  \"npm run build:watch\" \"npm run dev:demo\"",
     "dev:demo": "cd demo && npm run dev"
   },

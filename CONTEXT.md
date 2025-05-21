@@ -38,7 +38,7 @@ GravyJS is a WYSIWYG editor component for React/NextJS applications featuring va
 
 ### File Structure
 ```
-gravy-js/
+gravyjs/
 ├── src/
 │   ├── GravyJS.js         # Main component
 │   ├── GravyJS.css        # Styles
@@ -118,7 +118,7 @@ mkdir demo && cd demo
 npm init -y
 npm install react react-dom
 npm install --save-dev vite @vitejs/plugin-react
-cd .. && npm link && cd demo && npm link gravy-js
+cd .. && npm link && cd demo && npm link gravyjs
 ```
 
 ## Styling Structure
