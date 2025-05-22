@@ -36,6 +36,9 @@ export interface GravyJSProps {
 
   /** End delimiter for variables */
   variableSuffix?: string;
+
+  /** Custom function to prompt for variable values. If not provided, uses browser prompt() */
+  onVariablePrompt?: (variableName: string, variablePrefix: string, variableSuffix: string) => Promise<string | null> | string | null;
 }
 
 export interface GravyJSRef {

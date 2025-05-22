@@ -67,6 +67,7 @@ function App() {
 | `className` | `string` | `''` | Custom CSS class |
 | `variablePrefix` | `string` | `'[['` | Start delimiter for variables |
 | `variableSuffix` | `string` | `']]'` | End delimiter for variables |
+| `onVariablePrompt` | `function` | `undefined` | Custom function to prompt for variable values |
 
 ### Snippet Object Structure
 
@@ -133,6 +134,44 @@ Hello [[name]], welcome to [[company]]!
 2. **Populate Variables**: Click "Populate Variables" to enter values
 3. **Copy Content**: Copy the populated content with formatting preserved
 4. **Template Stays**: Original template remains unchanged for reuse
+
+### Custom Variable Prompts
+
+By default, GravyJS uses browser `prompt()` dialogs for variable input. You can provide your own UI:
+
+```jsx
+const MyEditor = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [currentVariable, setCurrentVariable] = useState('');
+  const [resolve, setResolve] = useState(null);
+
+  const handleVariablePrompt = (variableName, prefix, suffix) => {
+    return new Promise((resolvePromise) => {
+      setCurrentVariable(variableName);
+      setResolve(() => resolvePromise);
+      setShowModal(true);
+    });
+  };
+
+  const handleModalSubmit = (value) => {
+    resolve(value);
+    setShowModal(false);
+  };
+
+  return (
+    <>
+      <GravyJS onVariablePrompt={handleVariablePrompt} />
+      {showModal && (
+        <VariableModal 
+          variableName={currentVariable}
+          onSubmit={handleModalSubmit}
+          onCancel={() => handleModalSubmit(null)}
+        />
+      )}
+    </>
+  );
+};
+```
 
 ## 📋 Copy with Formatting
 

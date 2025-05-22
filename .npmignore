@@ -1,0 +1,27 @@
+# Source files
+src/
+demo/
+*.md
+!README.md
+
+# Configuration files
+.babelrc
+jest.config.js
+rollup.config.js
+.gitignore
+.git/
+
+# Development files
+.DS_Store
+.vscode/
+.idea/
+*.log
+node_modules/
+package-lock.json
+yarn.lock
+
+# Test files
+coverage/
+__tests__/
+*.test.js
+*.spec.js

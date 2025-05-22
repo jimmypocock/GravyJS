@@ -33,10 +33,41 @@ function App() {
   const [populatedContent, setPopulatedContent] = useState(null);
   const [variablePrefix, setVariablePrefix] = useState('[[');
   const [variableSuffix, setVariableSuffix] = useState(']]');
+  const [useCustomPrompt, setUseCustomPrompt] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
   const editorRef = useRef(null);
 
+  // Custom variable prompt function that shows a modal instead of browser prompt
+  const customVariablePrompt = (variableName, prefix, suffix) => {
+    return new Promise((resolve) => {
+      setModalData({
+        variableName,
+        prefix,
+        suffix,
+        resolve
+      });
+      setShowModal(true);
+    });
+  };
+
+  const handleModalSubmit = (value) => {
+    if (modalData) {
+      modalData.resolve(value);
+      setModalData(null);
+    }
+    setShowModal(false);
+  };
+
+  const handleModalCancel = () => {
+    if (modalData) {
+      modalData.resolve(null);
+      setModalData(null);
+    }
+    setShowModal(false);
+  };
+
   const handlePopulateVariables = async () => {
-    debugger;
     if (editorRef.current) {
       const result = await editorRef.current.populateVariables();
 
@@ -126,7 +157,7 @@ function App() {
 
       <div className="demo-container">
         <div className="config-section">
-          <h3>Variable Configuration:</h3>
+          <h3>Configuration:</h3>
           <div className="config-inputs">
             <label>
               Variable Prefix:
@@ -157,6 +188,14 @@ function App() {
             <div className="example-text">
               Example: {variablePrefix}name{variableSuffix}
             </div>
+            <label className="prompt-toggle">
+              <input
+                type="checkbox"
+                checked={useCustomPrompt}
+                onChange={(e) => setUseCustomPrompt(e.target.checked)}
+              />
+              Use Custom Modal Prompts (instead of browser prompts)
+            </label>
           </div>
         </div>
 
@@ -186,6 +225,7 @@ function App() {
             className="demo-editor"
             variablePrefix={variablePrefix}
             variableSuffix={variableSuffix}
+            onVariablePrompt={useCustomPrompt ? customVariablePrompt : undefined}
           />
         </div>
 
@@ -219,10 +259,53 @@ function App() {
           </div>
         )}
 
+        {/* Custom Variable Modal */}
+        {showModal && modalData && (
+          <div className="modal-overlay" onClick={handleModalCancel}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h3>Enter Variable Value</h3>
+              <p>
+                Please enter a value for variable: <strong>{modalData.variableName}</strong>
+              </p>
+              <p className="variable-example">
+                This will replace: <code>{modalData.prefix}{modalData.variableName}{modalData.suffix}</code>
+              </p>
+              <input
+                type="text"
+                placeholder={`Enter value for ${modalData.variableName}...`}
+                className="modal-input"
+                autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleModalSubmit(e.target.value);
+                  } else if (e.key === 'Escape') {
+                    handleModalCancel();
+                  }
+                }}
+              />
+              <div className="modal-buttons">
+                <button
+                  onClick={() => {
+                    const input = document.querySelector('.modal-input');
+                    handleModalSubmit(input.value);
+                  }}
+                  className="modal-btn modal-btn-primary"
+                >
+                  OK
+                </button>
+                <button onClick={handleModalCancel} className="modal-btn modal-btn-secondary">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="instructions">
           <h3>How to Use Variable Templates:</h3>
           <ol>
             <li><strong>Configure Variables:</strong> Choose your preferred variable delimiters above (default: [[name]])</li>
+            <li><strong>Choose Prompt Style:</strong> Toggle between browser prompts and custom modal prompts</li>
             <li><strong>Create Template:</strong> Type your content in the editor above</li>
             <li><strong>Insert Variables:</strong> Click the {variablePrefix}{variableSuffix} button to insert placeholders</li>
             <li><strong>Add Snippets:</strong> Use the 📝 button to insert pre-made snippets with variables</li>
@@ -235,6 +318,8 @@ function App() {
             <ul>
               <li>Use double brackets [[]] instead of curly braces to avoid conflicts with React/JSX</li>
               <li>You can customize variable delimiters - try %%, @@, or any other characters</li>
+              <li>Toggle between browser prompts and custom modal prompts in the configuration section</li>
+              <li>Custom modal prompts provide a better user experience and can be styled to match your application</li>
               <li>Your template stays unchanged - you can populate it multiple times with different values</li>
               <li>Formatting (bold, italic, lists, links) is preserved when copying</li>
               <li>Use meaningful variable names like [[firstName]], [[companyName]], [[meetingDate]]</li>
