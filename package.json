@@ -11,6 +11,7 @@
     "build:watch": " rollup -c --watch && npm run build:types",
     "build:types": "cp src/index.d.ts dist/index.d.ts",
     "test": "jest",
+    "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build",
     "demo:install": "cd demo && npm install",
     "demo:link": "npm link && cd demo && npm link gravyjs",
