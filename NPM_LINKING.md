@@ -83,6 +83,7 @@ This builds GravyJS first, then OtherProject.
 ### If linking stops working:
 
 1. Check if GravyJS global link exists:
+
    ```bash
    npm list -g --depth=0 | grep gravyjs
    ```

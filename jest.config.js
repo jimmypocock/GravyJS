@@ -1,20 +1,20 @@
 export default {
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
   moduleNameMapper: {
-    '\\.(css|less|scss)$': 'identity-obj-proxy',
+    "\\.(css|less|scss)$": "identity-obj-proxy",
   },
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    "^.+\\.(js|jsx)$": "babel-jest",
   },
-  moduleFileExtensions: ['js', 'jsx'],
+  moduleFileExtensions: ["js", "jsx"],
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{js,jsx}',
-    '<rootDir>/src/**/*.{test,spec}.{js,jsx}'
+    "<rootDir>/src/**/__tests__/**/*.{js,jsx}",
+    "<rootDir>/src/**/*.{test,spec}.{js,jsx}",
   ],
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
-    '!src/index.js',
-    '!src/setupTests.js'
-  ]
+    "src/**/*.{js,jsx}",
+    "!src/index.js",
+    "!src/setupTests.js",
+  ],
 };

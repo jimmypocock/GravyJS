@@ -33,6 +33,7 @@ npm run dev:demo       # Start demo server only
 ## Architecture
 
 ### Core Technology Stack
+
 - **Framework**: React with forwardRef pattern and imperative ref API
 - **Build System**: Rollup with Babel transpilation (ES modules + CommonJS)
 - **Styling**: CSS modules with postcss processing
@@ -40,6 +41,7 @@ npm run dev:demo       # Start demo server only
 - **Demo Environment**: Vite-based development setup
 
 ### Core Features
+
 1. **Rich Text Editing**: Bold, italic, underline, lists, links with keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+U)
 2. **Variable System**: Configurable delimiters (default `[[]]` to avoid React JSX conflicts)
 3. **Variable Population**: Prompts user for values, generates new content without modifying template
@@ -47,6 +49,7 @@ npm run dev:demo       # Start demo server only
 5. **Copy with Formatting**: Preserves rich text when copying to clipboard
 
 ### Key Design Principles
+
 1. **Template Preservation**: Original templates never change when variables are populated
 2. **Configurable Variable Delimiters**: Default `[[]]` to avoid React JSX conflicts
 3. **Modern DOM APIs**: Uses Selection/Range APIs with TreeWalker instead of deprecated `document.execCommand`
@@ -55,6 +58,7 @@ npm run dev:demo       # Start demo server only
 6. **Cursor Management**: Proper cursor position management with debounced input handling
 
 ### Component Structure
+
 ```
 src/
 ├── GravyJS.js                    # Main orchestrator component (forwardRef)
@@ -80,7 +84,9 @@ src/
 ```
 
 ### Variable System Implementation
+
 Variables are stored as HTML spans with data attributes:
+
 ```html
 <!-- Unpopulated variable -->
 <span class="gravy-variable" data-variable="name">[[name]]</span>
@@ -92,12 +98,13 @@ Variables are stored as HTML spans with data attributes:
 Variable detection uses regex pattern matching on both HTML and text content for robustness.
 
 ### Exposed API (via ref)
+
 ```javascript
 // Main methods
-editorRef.current.populateVariables()      // Promise<{html, plainText, variables}>
-editorRef.current.getContent()             // Returns current HTML
-editorRef.current.setContent(html)         // Sets editor content
-editorRef.current.getAllVariables()        // Returns array of variable names
+editorRef.current.populateVariables(); // Promise<{html, plainText, variables}>
+editorRef.current.getContent(); // Returns current HTML
+editorRef.current.setContent(html); // Sets editor content
+editorRef.current.getAllVariables(); // Returns array of variable names
 ```
 
 ## Testing Setup
@@ -110,18 +117,22 @@ editorRef.current.getAllVariables()        // Returns array of variable names
 ## Development Workflow
 
 ### Package Development
+
 1. Make changes to `src/` files
 2. Run `npm run build:watch` for live rebuilding
 3. Use demo app (`npm run dev:demo`) for testing
 
 ### Demo Setup
+
 The demo environment uses npm linking for live development:
+
 ```bash
 npm link                    # In package root
 cd demo && npm link gravyjs  # Link to demo
 ```
 
 ### CSS Classes
+
 - `.gravy-editor`: Main container
 - `.gravy-toolbar`: Toolbar container
 - `.gravy-content`: Editable content area
@@ -130,6 +141,7 @@ cd demo && npm link gravyjs  # Link to demo
 - `.gravy-snippets-dropdown`: Snippet selection UI
 
 ### Snippet Format
+
 ```javascript
 {
   title: "Snippet Name",
@@ -138,6 +150,7 @@ cd demo && npm link gravyjs  # Link to demo
 ```
 
 ### Variable Population Flow
+
 1. User creates template with variables: `Hello [[name]]`
 2. Clicks "Populate Variables" button
 3. System prompts for each variable value
@@ -145,27 +158,30 @@ cd demo && npm link gravyjs  # Link to demo
 5. User can copy with formatting preserved
 
 ### Copy Implementation
+
 ```javascript
 // Copies both HTML and plain text
 await navigator.clipboard.write([
   new ClipboardItem({
-    'text/html': new Blob([html], { type: 'text/html' }),
-    'text/plain': new Blob([plainText], { type: 'text/plain' })
-  })
+    "text/html": new Blob([html], { type: "text/html" }),
+    "text/plain": new Blob([plainText], { type: "text/plain" }),
+  }),
 ]);
 ```
 
 ### Important Props
-| Prop | Type | Default | Purpose |
-|------|------|---------|---------|
-| `variablePrefix` | string | `'[['` | Start delimiter |
-| `variableSuffix` | string | `']]'` | End delimiter |
-| `snippets` | array | `[]` | Available snippets |
-| `onChange` | function | - | Content change handler |
-| `placeholder` | string | - | Editor placeholder |
-| `onVariablePrompt` | function | - | Custom variable input function (optional) |
+
+| Prop               | Type     | Default | Purpose                                   |
+| ------------------ | -------- | ------- | ----------------------------------------- |
+| `variablePrefix`   | string   | `'[['`  | Start delimiter                           |
+| `variableSuffix`   | string   | `']]'`  | End delimiter                             |
+| `snippets`         | array    | `[]`    | Available snippets                        |
+| `onChange`         | function | -       | Content change handler                    |
+| `placeholder`      | string   | -       | Editor placeholder                        |
+| `onVariablePrompt` | function | -       | Custom variable input function (optional) |
 
 ### Architecture Benefits
+
 - **Modular Components**: Each component has single responsibility
 - **Reusable Hooks**: Logic is extracted into composable hooks
 - **Better Testing**: Components can be tested in isolation
@@ -173,6 +189,7 @@ await navigator.clipboard.write([
 - **Professional Scalability**: Can add features without bloating core files
 
 ### Component Responsibilities
+
 - **GravyJS.js**: Main orchestrator, manages state and coordinates between components
 - **Toolbar.jsx**: All formatting buttons, handles user interactions
 - **Editor.jsx**: ContentEditable wrapper with debounced input handling
@@ -185,6 +202,7 @@ await navigator.clipboard.write([
 - **useEditorContent.js**: Content state management and programmatic content control
 
 ### Common Issues
+
 - **Cursor Management**: Solved using proper Selection API management with TreeWalker
 - **React contentEditable Warnings**: Handled with careful event management
 - **Variable Conflicts**: Configurable delimiters prevent JSX template literal conflicts
@@ -193,15 +211,18 @@ await navigator.clipboard.write([
 ## Build Configuration
 
 ### Rollup Output
+
 - **CommonJS**: `dist/index.js` for Node.js compatibility
 - **ES Modules**: `dist/index.es.js` for modern bundlers
 - **TypeScript**: `dist/index.d.ts` declarations copied from source
 - **CSS**: Extracted to `dist/index.css` with postcss processing
 
 ### External Dependencies
+
 React and ReactDOM are marked as peer dependencies and external in build.
 
 ### Future Roadmap
+
 - v2.0.0: Full TypeScript conversion
 - Plugin system
 - Table support

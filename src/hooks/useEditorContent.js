@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from "react";
 
 export const useEditorContent = (initialValue, onChange) => {
   const [content, setContent] = useState(initialValue);
@@ -15,31 +15,34 @@ export const useEditorContent = (initialValue, onChange) => {
           onChange(newContent);
         }
       } catch (error) {
-        console.error('Error updating content:', error);
+        console.error("Error updating content:", error);
       }
     }
   }, [onChange]);
 
   // Set editor content programmatically (used by the ref API)
-  const setEditorContent = useCallback((newContent) => {
-    try {
-      if (editorRef.current) {
-        isUpdatingRef.current = true;
-        editorRef.current.innerHTML = newContent || '';
-        setContent(newContent || '');
-        if (onChange) {
-          onChange(newContent || '');
+  const setEditorContent = useCallback(
+    (newContent) => {
+      try {
+        if (editorRef.current) {
+          isUpdatingRef.current = true;
+          editorRef.current.innerHTML = newContent || "";
+          setContent(newContent || "");
+          if (onChange) {
+            onChange(newContent || "");
+          }
+          isUpdatingRef.current = false;
         }
-        isUpdatingRef.current = false;
+      } catch (error) {
+        console.error("Error setting content:", error);
       }
-    } catch (error) {
-      console.error('Error setting content:', error);
-    }
-  }, [onChange]);
+    },
+    [onChange],
+  );
 
   // Get the current HTML content from the editor
   const getContent = useCallback(() => {
-    return editorRef.current ? editorRef.current.innerHTML : '';
+    return editorRef.current ? editorRef.current.innerHTML : "";
   }, []);
 
   // Set initial content with error handling
@@ -52,7 +55,7 @@ export const useEditorContent = (initialValue, onChange) => {
         isUpdatingRef.current = false;
       }
     } catch (error) {
-      console.error('Error setting initial content:', error);
+      console.error("Error setting initial content:", error);
     }
   }, [initialValue, content]);
 
@@ -61,6 +64,6 @@ export const useEditorContent = (initialValue, onChange) => {
     editorRef,
     updateContent,
     setEditorContent,
-    getContent
+    getContent,
   };
 };

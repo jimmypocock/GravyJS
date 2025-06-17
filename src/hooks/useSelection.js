@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 export const useSelection = (editorRef) => {
   const [currentRange, setCurrentRange] = useState(null);
@@ -11,7 +11,7 @@ export const useSelection = (editorRef) => {
         setCurrentRange(selection.getRangeAt(0).cloneRange());
       }
     } catch (error) {
-      console.error('Error saving selection:', error);
+      console.error("Error saving selection:", error);
     }
   }, []);
 
@@ -33,7 +33,7 @@ export const useSelection = (editorRef) => {
         }
       }
     } catch (error) {
-      console.error('Error restoring selection:', error);
+      console.error("Error restoring selection:", error);
     }
   }, [currentRange, editorRef]);
 
@@ -46,6 +46,6 @@ export const useSelection = (editorRef) => {
     currentRange,
     saveSelection,
     restoreSelection,
-    handleMouseUp
+    handleMouseUp,
   };
 };

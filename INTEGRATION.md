@@ -4,63 +4,73 @@
 
 ```javascript
 // infrastructure/gravy-stack.js
-import { Stack } from 'aws-cdk-lib';
-import { Table, AttributeType, BillingMode, ProjectionType } from 'aws-cdk-lib/aws-dynamodb';
-import { RestApi, LambdaIntegration, Cors, AuthorizationType } from 'aws-cdk-lib/aws-apigateway';
-import { Function, Runtime, Code } from 'aws-cdk-lib/aws-lambda';
-import { UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
-import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
+import { Stack } from "aws-cdk-lib";
+import {
+  Table,
+  AttributeType,
+  BillingMode,
+  ProjectionType,
+} from "aws-cdk-lib/aws-dynamodb";
+import {
+  RestApi,
+  LambdaIntegration,
+  Cors,
+  AuthorizationType,
+} from "aws-cdk-lib/aws-apigateway";
+import { Function, Runtime, Code } from "aws-cdk-lib/aws-lambda";
+import { UserPool, UserPoolClient } from "aws-cdk-lib/aws-cognito";
+import { PolicyStatement, Effect } from "aws-cdk-lib/aws-iam";
 
 export class GravyStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
     // DynamoDB Tables
-    const templatesTable = new Table(this, 'GravyTemplates', {
-      tableName: 'GravyTemplates',
-      partitionKey: { name: 'userId', type: AttributeType.STRING },
-      sortKey: { name: 'templateId', type: AttributeType.STRING },
-      billingMode: BillingMode.PAY_PER_REQUEST
+    const templatesTable = new Table(this, "GravyTemplates", {
+      tableName: "GravyTemplates",
+      partitionKey: { name: "userId", type: AttributeType.STRING },
+      sortKey: { name: "templateId", type: AttributeType.STRING },
+      billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
     templatesTable.addGlobalSecondaryIndex({
-      indexName: 'CategoryIndex',
-      partitionKey: { name: 'userId', type: AttributeType.STRING },
-      sortKey: { name: 'category', type: AttributeType.STRING },
-      projectionType: ProjectionType.ALL
+      indexName: "CategoryIndex",
+      partitionKey: { name: "userId", type: AttributeType.STRING },
+      sortKey: { name: "category", type: AttributeType.STRING },
+      projectionType: ProjectionType.ALL,
     });
 
     templatesTable.addGlobalSecondaryIndex({
-      indexName: 'SharedTemplatesIndex',
-      partitionKey: { name: 'isShared', type: AttributeType.STRING },
-      sortKey: { name: 'category', type: AttributeType.STRING },
-      projectionType: ProjectionType.ALL
+      indexName: "SharedTemplatesIndex",
+      partitionKey: { name: "isShared", type: AttributeType.STRING },
+      sortKey: { name: "category", type: AttributeType.STRING },
+      projectionType: ProjectionType.ALL,
     });
 
-    const snippetsTable = new Table(this, 'GravySnippets', {
-      tableName: 'GravySnippets',
-      partitionKey: { name: 'userId', type: AttributeType.STRING },
-      sortKey: { name: 'snippetId', type: AttributeType.STRING },
-      billingMode: BillingMode.PAY_PER_REQUEST
+    const snippetsTable = new Table(this, "GravySnippets", {
+      tableName: "GravySnippets",
+      partitionKey: { name: "userId", type: AttributeType.STRING },
+      sortKey: { name: "snippetId", type: AttributeType.STRING },
+      billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
     snippetsTable.addGlobalSecondaryIndex({
-      indexName: 'CategoryIndex',
-      partitionKey: { name: 'userId', type: AttributeType.STRING },
-      sortKey: { name: 'category', type: AttributeType.STRING },
-      projectionType: ProjectionType.ALL
+      indexName: "CategoryIndex",
+      partitionKey: { name: "userId", type: AttributeType.STRING },
+      sortKey: { name: "category", type: AttributeType.STRING },
+      projectionType: ProjectionType.ALL,
     });
 
-    const variablePresetsTable = new Table(this, 'GravyVariablePresets', {
-      tableName: 'GravyVariablePresets',
-      partitionKey: { name: 'userId', type: AttributeType.STRING },
-      sortKey: { name: 'presetId', type: AttributeType.STRING },
-      billingMode: BillingMode.PAY_PER_REQUEST
+    const variablePresetsTable = new Table(this, "GravyVariablePresets", {
+      tableName: "GravyVariablePresets",
+      partitionKey: { name: "userId", type: AttributeType.STRING },
+      sortKey: { name: "presetId", type: AttributeType.STRING },
+      billingMode: BillingMode.PAY_PER_REQUEST,
     });
 
     // Cognito User Pool
-    const userPool = new UserPool(this, 'GravyUserPool', {
-      userPoolName: 'GravyUsers',
+    const userPool = new UserPool(this, "GravyUserPool", {
+      userPoolName: "GravyUsers",
       signInAliases: { email: true },
       selfSignUpEnabled: true,
       passwordPolicy: {
@@ -68,44 +78,44 @@ export class GravyStack extends Stack {
         requireLowercase: true,
         requireUppercase: true,
         requireDigits: true,
-        requireSymbols: true
-      }
+        requireSymbols: true,
+      },
     });
 
-    const userPoolClient = new UserPoolClient(this, 'GravyUserPoolClient', {
+    const userPoolClient = new UserPoolClient(this, "GravyUserPoolClient", {
       userPool,
       authFlows: {
         userSrp: true,
-        userPassword: true
-      }
+        userPassword: true,
+      },
     });
 
     // Lambda Functions
-    const templatesLambda = new Function(this, 'TemplatesLambda', {
+    const templatesLambda = new Function(this, "TemplatesLambda", {
       runtime: Runtime.NODEJS_18_X,
-      handler: 'templates.handler',
-      code: Code.fromAsset('lambda'),
+      handler: "templates.handler",
+      code: Code.fromAsset("lambda"),
       environment: {
-        TEMPLATES_TABLE_NAME: templatesTable.tableName
-      }
+        TEMPLATES_TABLE_NAME: templatesTable.tableName,
+      },
     });
 
-    const snippetsLambda = new Function(this, 'SnippetsLambda', {
+    const snippetsLambda = new Function(this, "SnippetsLambda", {
       runtime: Runtime.NODEJS_18_X,
-      handler: 'snippets.handler',
-      code: Code.fromAsset('lambda'),
+      handler: "snippets.handler",
+      code: Code.fromAsset("lambda"),
       environment: {
-        SNIPPETS_TABLE_NAME: snippetsTable.tableName
-      }
+        SNIPPETS_TABLE_NAME: snippetsTable.tableName,
+      },
     });
 
-    const variablePresetsLambda = new Function(this, 'VariablePresetsLambda', {
+    const variablePresetsLambda = new Function(this, "VariablePresetsLambda", {
       runtime: Runtime.NODEJS_18_X,
-      handler: 'variable-presets.handler',
-      code: Code.fromAsset('lambda'),
+      handler: "variable-presets.handler",
+      code: Code.fromAsset("lambda"),
       environment: {
-        VARIABLE_PRESETS_TABLE_NAME: variablePresetsTable.tableName
-      }
+        VARIABLE_PRESETS_TABLE_NAME: variablePresetsTable.tableName,
+      },
     });
 
     // Grant permissions
@@ -114,44 +124,56 @@ export class GravyStack extends Stack {
     variablePresetsTable.grantReadWriteData(variablePresetsLambda);
 
     // API Gateway
-    const api = new RestApi(this, 'GravyApi', {
-      restApiName: 'Gravy Templates API',
+    const api = new RestApi(this, "GravyApi", {
+      restApiName: "Gravy Templates API",
       cors: {
         allowOrigins: Cors.ALL_ORIGINS,
-        allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowHeaders: ['Content-Type', 'Authorization']
-      }
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowHeaders: ["Content-Type", "Authorization"],
+      },
     });
 
     // Add Cognito Authorizer
-    const cognitoAuthorizer = new CognitoUserPoolsAuthorizer(this, 'GravyAuthorizer', {
-      cognitoUserPools: [userPool]
-    });
+    const cognitoAuthorizer = new CognitoUserPoolsAuthorizer(
+      this,
+      "GravyAuthorizer",
+      {
+        cognitoUserPools: [userPool],
+      },
+    );
 
     // API Routes
-    const templatesResource = api.root.addResource('templates');
-    templatesResource.addMethod('GET', new LambdaIntegration(templatesLambda), {
+    const templatesResource = api.root.addResource("templates");
+    templatesResource.addMethod("GET", new LambdaIntegration(templatesLambda), {
       authorizationType: AuthorizationType.COGNITO,
-      authorizer: cognitoAuthorizer
+      authorizer: cognitoAuthorizer,
     });
-    templatesResource.addMethod('POST', new LambdaIntegration(templatesLambda), {
-      authorizationType: AuthorizationType.COGNITO,
-      authorizer: cognitoAuthorizer
-    });
+    templatesResource.addMethod(
+      "POST",
+      new LambdaIntegration(templatesLambda),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: cognitoAuthorizer,
+      },
+    );
 
-    const templateResource = templatesResource.addResource('{templateId}');
-    templateResource.addMethod('GET', new LambdaIntegration(templatesLambda), {
+    const templateResource = templatesResource.addResource("{templateId}");
+    templateResource.addMethod("GET", new LambdaIntegration(templatesLambda), {
       authorizationType: AuthorizationType.COGNITO,
-      authorizer: cognitoAuthorizer
+      authorizer: cognitoAuthorizer,
     });
-    templateResource.addMethod('PUT', new LambdaIntegration(templatesLambda), {
+    templateResource.addMethod("PUT", new LambdaIntegration(templatesLambda), {
       authorizationType: AuthorizationType.COGNITO,
-      authorizer: cognitoAuthorizer
+      authorizer: cognitoAuthorizer,
     });
-    templateResource.addMethod('DELETE', new LambdaIntegration(templatesLambda), {
-      authorizationType: AuthorizationType.COGNITO,
-      authorizer: cognitoAuthorizer
-    });
+    templateResource.addMethod(
+      "DELETE",
+      new LambdaIntegration(templatesLambda),
+      {
+        authorizationType: AuthorizationType.COGNITO,
+        authorizer: cognitoAuthorizer,
+      },
+    );
 
     // Similar setup for snippets and variable presets...
   }
@@ -167,16 +189,22 @@ export class GravyStack extends Stack {
 class TemplateService {
   // Search templates with full-text capabilities
   async searchTemplates(userId, searchParams) {
-    const { query, category, tags, limit = 20, lastEvaluatedKey } = searchParams;
+    const {
+      query,
+      category,
+      tags,
+      limit = 20,
+      lastEvaluatedKey,
+    } = searchParams;
 
     // Use DynamoDB Query with FilterExpression for better performance
     const params = {
-      TableName: 'GravyTemplates',
-      KeyConditionExpression: 'userId = :userId',
+      TableName: "GravyTemplates",
+      KeyConditionExpression: "userId = :userId",
       ExpressionAttributeValues: {
-        ':userId': userId
+        ":userId": userId,
       },
-      Limit: limit
+      Limit: limit,
     };
 
     if (lastEvaluatedKey) {
@@ -186,17 +214,19 @@ class TemplateService {
     // Add filters
     const filterExpressions = [];
     if (category) {
-      filterExpressions.push('category = :category');
-      params.ExpressionAttributeValues[':category'] = category;
+      filterExpressions.push("category = :category");
+      params.ExpressionAttributeValues[":category"] = category;
     }
 
     if (query) {
-      filterExpressions.push('(contains(title, :query) OR contains(description, :query))');
-      params.ExpressionAttributeValues[':query'] = query;
+      filterExpressions.push(
+        "(contains(title, :query) OR contains(description, :query))",
+      );
+      params.ExpressionAttributeValues[":query"] = query;
     }
 
     if (filterExpressions.length > 0) {
-      params.FilterExpression = filterExpressions.join(' AND ');
+      params.FilterExpression = filterExpressions.join(" AND ");
     }
 
     return await dynamoClient.send(new QueryCommand(params));
@@ -205,14 +235,14 @@ class TemplateService {
   // Get popular/trending templates
   async getTrendingTemplates(limit = 10) {
     const params = {
-      TableName: 'GravyTemplates',
-      IndexName: 'SharedTemplatesIndex',
-      KeyConditionExpression: 'isShared = :shared',
+      TableName: "GravyTemplates",
+      IndexName: "SharedTemplatesIndex",
+      KeyConditionExpression: "isShared = :shared",
       ExpressionAttributeValues: {
-        ':shared': 'true'
+        ":shared": "true",
       },
       ScanIndexForward: false, // Sort by usage count desc
-      Limit: limit
+      Limit: limit,
     };
 
     return await dynamoClient.send(new QueryCommand(params));
@@ -229,17 +259,17 @@ class TemplateService {
       templateId: `template-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       userId,
       title: newTitle || `Copy of ${original.title}`,
-      isShared: 'false',
+      isShared: "false",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      usageCount: 0
+      usageCount: 0,
     };
 
     delete newTemplate.originalTemplateId; // Remove if exists
 
     const command = new PutCommand({
-      TableName: 'GravyTemplates',
-      Item: newTemplate
+      TableName: "GravyTemplates",
+      Item: newTemplate,
     });
 
     await dynamoClient.send(command);
@@ -262,25 +292,30 @@ const createTemplateVersion = async (userId, templateId, content, changes) => {
     content,
     changes,
     createdAt: new Date().toISOString(),
-    isActive: true
+    isActive: true,
   };
 
   // Store in separate versions table
-  await dynamoClient.send(new PutCommand({
-    TableName: 'GravyTemplateVersions',
-    Item: version
-  }));
+  await dynamoClient.send(
+    new PutCommand({
+      TableName: "GravyTemplateVersions",
+      Item: version,
+    }),
+  );
 
   // Update main template to reference latest version
-  await dynamoClient.send(new UpdateCommand({
-    TableName: 'GravyTemplates',
-    Key: { userId, templateId },
-    UpdateExpression: 'SET latestVersion = :versionId, updatedAt = :updatedAt',
-    ExpressionAttributeValues: {
-      ':versionId': versionId,
-      ':updatedAt': new Date().toISOString()
-    }
-  }));
+  await dynamoClient.send(
+    new UpdateCommand({
+      TableName: "GravyTemplates",
+      Key: { userId, templateId },
+      UpdateExpression:
+        "SET latestVersion = :versionId, updatedAt = :updatedAt",
+      ExpressionAttributeValues: {
+        ":versionId": versionId,
+        ":updatedAt": new Date().toISOString(),
+      },
+    }),
+  );
 };
 ```
 
@@ -288,31 +323,35 @@ const createTemplateVersion = async (userId, templateId, content, changes) => {
 
 ```javascript
 // Track template usage
-const trackTemplateUsage = async (userId, templateId, action = 'populate') => {
+const trackTemplateUsage = async (userId, templateId, action = "populate") => {
   const trackingId = `track-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
   // Store in analytics table
-  await dynamoClient.send(new PutCommand({
-    TableName: 'GravyAnalytics',
-    Item: {
-      userId,
-      trackingId,
-      templateId,
-      action,
-      timestamp: new Date().toISOString(),
-      date: new Date().toISOString().split('T')[0] // for daily aggregation
-    }
-  }));
+  await dynamoClient.send(
+    new PutCommand({
+      TableName: "GravyAnalytics",
+      Item: {
+        userId,
+        trackingId,
+        templateId,
+        action,
+        timestamp: new Date().toISOString(),
+        date: new Date().toISOString().split("T")[0], // for daily aggregation
+      },
+    }),
+  );
 
   // Increment usage counter on template
-  await dynamoClient.send(new UpdateCommand({
-    TableName: 'GravyTemplates',
-    Key: { userId, templateId },
-    UpdateExpression: 'ADD usageCount :inc',
-    ExpressionAttributeValues: {
-      ':inc': 1
-    }
-  }));
+  await dynamoClient.send(
+    new UpdateCommand({
+      TableName: "GravyTemplates",
+      Key: { userId, templateId },
+      UpdateExpression: "ADD usageCount :inc",
+      ExpressionAttributeValues: {
+        ":inc": 1,
+      },
+    }),
+  );
 };
 ```
 
@@ -320,42 +359,49 @@ const trackTemplateUsage = async (userId, templateId, action = 'populate') => {
 
 ```javascript
 // Share template with specific users
-const shareTemplate = async (userId, templateId, targetUserIds, permissions = 'read') => {
-  const shares = targetUserIds.map(targetUserId => ({
+const shareTemplate = async (
+  userId,
+  templateId,
+  targetUserIds,
+  permissions = "read",
+) => {
+  const shares = targetUserIds.map((targetUserId) => ({
     templateId,
     sharedByUserId: userId,
     sharedWithUserId: targetUserId,
     permissions,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   }));
 
   // Batch write to shares table
-  const writeRequests = shares.map(share => ({
-    PutRequest: { Item: share }
+  const writeRequests = shares.map((share) => ({
+    PutRequest: { Item: share },
   }));
 
-  await dynamoClient.send(new BatchWriteCommand({
-    RequestItems: {
-      'GravyTemplateShares': writeRequests
-    }
-  }));
+  await dynamoClient.send(
+    new BatchWriteCommand({
+      RequestItems: {
+        GravyTemplateShares: writeRequests,
+      },
+    }),
+  );
 };
 
 // Get templates shared with user
 const getSharedTemplates = async (userId) => {
   const command = new QueryCommand({
-    TableName: 'GravyTemplateShares',
-    IndexName: 'SharedWithUserIndex',
-    KeyConditionExpression: 'sharedWithUserId = :userId',
+    TableName: "GravyTemplateShares",
+    IndexName: "SharedWithUserIndex",
+    KeyConditionExpression: "sharedWithUserId = :userId",
     ExpressionAttributeValues: {
-      ':userId': userId
-    }
+      ":userId": userId,
+    },
   });
 
   const shares = await dynamoClient.send(command);
 
   // Get actual templates
-  const templateIds = shares.Items.map(share => share.templateId);
+  const templateIds = shares.Items.map((share) => share.templateId);
   // Batch get templates...
 };
 ```
@@ -364,8 +410,8 @@ const getSharedTemplates = async (userId) => {
 
 ```javascript
 // hooks/useTemplateManager.js
-import { useState, useEffect, useCallback } from 'react';
-import { TemplateService } from '../services/TemplateService';
+import { useState, useEffect, useCallback } from "react";
+import { TemplateService } from "../services/TemplateService";
 
 export const useTemplateManager = () => {
   const [templates, setTemplates] = useState([]);
@@ -376,31 +422,34 @@ export const useTemplateManager = () => {
   const templateService = new TemplateService();
 
   // Load templates with pagination
-  const loadTemplates = useCallback(async (searchParams = {}, append = false) => {
-    setLoading(true);
-    setError(null);
+  const loadTemplates = useCallback(
+    async (searchParams = {}, append = false) => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const params = {
-        ...searchParams,
-        lastEvaluatedKey: append ? lastEvaluatedKey : null
-      };
+      try {
+        const params = {
+          ...searchParams,
+          lastEvaluatedKey: append ? lastEvaluatedKey : null,
+        };
 
-      const response = await templateService.searchTemplates(params);
+        const response = await templateService.searchTemplates(params);
 
-      if (append) {
-        setTemplates(prev => [...prev, ...response.Items]);
-      } else {
-        setTemplates(response.Items);
+        if (append) {
+          setTemplates((prev) => [...prev, ...response.Items]);
+        } else {
+          setTemplates(response.Items);
+        }
+
+        setLastEvaluatedKey(response.LastEvaluatedKey);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-
-      setLastEvaluatedKey(response.LastEvaluatedKey);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [lastEvaluatedKey]);
+    },
+    [lastEvaluatedKey],
+  );
 
   // Save template with optimistic updates
   const saveTemplate = useCallback(async (templateData) => {
@@ -408,25 +457,27 @@ export const useTemplateManager = () => {
       ...templateData,
       templateId: `temp-${Date.now()}`,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     // Optimistic update
-    setTemplates(prev => [optimisticTemplate, ...prev]);
+    setTemplates((prev) => [optimisticTemplate, ...prev]);
 
     try {
       const savedTemplate = await templateService.createTemplate(templateData);
 
       // Replace optimistic template with real one
-      setTemplates(prev =>
-        prev.map(t => t.templateId === optimisticTemplate.templateId ? savedTemplate : t)
+      setTemplates((prev) =>
+        prev.map((t) =>
+          t.templateId === optimisticTemplate.templateId ? savedTemplate : t,
+        ),
       );
 
       return savedTemplate;
     } catch (err) {
       // Remove optimistic template on error
-      setTemplates(prev =>
-        prev.filter(t => t.templateId !== optimisticTemplate.templateId)
+      setTemplates((prev) =>
+        prev.filter((t) => t.templateId !== optimisticTemplate.templateId),
       );
       setError(err.message);
       throw err;
@@ -434,47 +485,58 @@ export const useTemplateManager = () => {
   }, []);
 
   // Update template
-  const updateTemplate = useCallback(async (templateId, updateData) => {
-    setTemplates(prev =>
-      prev.map(t =>
-        t.templateId === templateId
-          ? { ...t, ...updateData, updatedAt: new Date().toISOString() }
-          : t
-      )
-    );
-
-    try {
-      const updatedTemplate = await templateService.updateTemplate(templateId, updateData);
-
-      setTemplates(prev =>
-        prev.map(t => t.templateId === templateId ? updatedTemplate : t)
+  const updateTemplate = useCallback(
+    async (templateId, updateData) => {
+      setTemplates((prev) =>
+        prev.map((t) =>
+          t.templateId === templateId
+            ? { ...t, ...updateData, updatedAt: new Date().toISOString() }
+            : t,
+        ),
       );
 
-      return updatedTemplate;
-    } catch (err) {
-      // Revert optimistic update
-      await loadTemplates();
-      setError(err.message);
-      throw err;
-    }
-  }, [loadTemplates]);
+      try {
+        const updatedTemplate = await templateService.updateTemplate(
+          templateId,
+          updateData,
+        );
+
+        setTemplates((prev) =>
+          prev.map((t) => (t.templateId === templateId ? updatedTemplate : t)),
+        );
+
+        return updatedTemplate;
+      } catch (err) {
+        // Revert optimistic update
+        await loadTemplates();
+        setError(err.message);
+        throw err;
+      }
+    },
+    [loadTemplates],
+  );
 
   // Delete template
-  const deleteTemplate = useCallback(async (templateId) => {
-    const templateToDelete = templates.find(t => t.templateId === templateId);
+  const deleteTemplate = useCallback(
+    async (templateId) => {
+      const templateToDelete = templates.find(
+        (t) => t.templateId === templateId,
+      );
 
-    // Optimistic delete
-    setTemplates(prev => prev.filter(t => t.templateId !== templateId));
+      // Optimistic delete
+      setTemplates((prev) => prev.filter((t) => t.templateId !== templateId));
 
-    try {
-      await templateService.deleteTemplate(templateId);
-    } catch (err) {
-      // Restore on error
-      setTemplates(prev => [templateToDelete, ...prev]);
-      setError(err.message);
-      throw err;
-    }
-  }, [templates]);
+      try {
+        await templateService.deleteTemplate(templateId);
+      } catch (err) {
+        // Restore on error
+        setTemplates((prev) => [templateToDelete, ...prev]);
+        setError(err.message);
+        throw err;
+      }
+    },
+    [templates],
+  );
 
   return {
     templates,
@@ -486,7 +548,7 @@ export const useTemplateManager = () => {
     saveTemplate,
     updateTemplate,
     deleteTemplate,
-    refreshTemplates: () => loadTemplates()
+    refreshTemplates: () => loadTemplates(),
   };
 };
 ```
@@ -497,8 +559,8 @@ export const useTemplateManager = () => {
 // services/OfflineTemplateService.js
 class OfflineTemplateService {
   constructor() {
-    this.storageKey = 'gravyTemplatesOffline';
-    this.syncQueue = 'gravySyncQueue';
+    this.storageKey = "gravyTemplatesOffline";
+    this.syncQueue = "gravySyncQueue";
   }
 
   // Save template offline
@@ -507,13 +569,13 @@ class OfflineTemplateService {
     offlineTemplates[template.templateId] = {
       ...template,
       isOffline: true,
-      lastModified: Date.now()
+      lastModified: Date.now(),
     };
 
     localStorage.setItem(this.storageKey, JSON.stringify(offlineTemplates));
 
     // Add to sync queue
-    this.addToSyncQueue('create', template);
+    this.addToSyncQueue("create", template);
   }
 
   // Get offline templates
@@ -529,7 +591,7 @@ class OfflineTemplateService {
       id: Date.now(),
       action,
       data,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     localStorage.setItem(this.syncQueue, JSON.stringify(queue));
@@ -543,18 +605,21 @@ class OfflineTemplateService {
     for (const item of queue) {
       try {
         switch (item.action) {
-          case 'create':
+          case "create":
             await templateService.createTemplate(item.data);
             break;
-          case 'update':
-            await templateService.updateTemplate(item.data.templateId, item.data);
+          case "update":
+            await templateService.updateTemplate(
+              item.data.templateId,
+              item.data,
+            );
             break;
-          case 'delete':
+          case "delete":
             await templateService.deleteTemplate(item.data.templateId);
             break;
         }
       } catch (error) {
-        console.error('Sync error for item:', item, error);
+        console.error("Sync error for item:", item, error);
         // Keep failed items in queue for retry
         continue;
       }
@@ -575,6 +640,7 @@ class OfflineTemplateService {
 ## Deployment Checklist
 
 1. **Deploy Infrastructure**
+
    ```bash
    npm install
    cdk bootstrap
@@ -582,11 +648,13 @@ class OfflineTemplateService {
    ```
 
 2. **Configure Environment Variables**
+
    - API Gateway URL
    - Cognito User Pool details
    - DynamoDB table names
 
 3. **Set up Monitoring**
+
    - CloudWatch dashboards
    - Error alerts
    - Usage metrics

@@ -1,7 +1,7 @@
-require('@testing-library/jest-dom');
+require("@testing-library/jest-dom");
 
 // Mock window.getSelection for editor testing
-Object.defineProperty(window, 'getSelection', {
+Object.defineProperty(window, "getSelection", {
   writable: true,
   value: jest.fn(() => ({
     removeAllRanges: jest.fn(),
@@ -10,7 +10,7 @@ Object.defineProperty(window, 'getSelection', {
     getRangeAt: jest.fn(() => ({
       cloneRange: jest.fn(),
       collapsed: false,
-      commonAncestorContainer: document.createElement('div'),
+      commonAncestorContainer: document.createElement("div"),
       insertNode: jest.fn(),
       extractContents: jest.fn(() => document.createDocumentFragment()),
       deleteContents: jest.fn(),
@@ -19,16 +19,16 @@ Object.defineProperty(window, 'getSelection', {
       setStartAfter: jest.fn(),
       collapse: jest.fn(),
       surroundContents: jest.fn(),
-      startContainer: document.createElement('div'),
+      startContainer: document.createElement("div"),
       startOffset: 0,
-      endOffset: 5
+      endOffset: 5,
     })),
-    toString: jest.fn(() => 'selected text')
-  }))
+    toString: jest.fn(() => "selected text"),
+  })),
 });
 
 // Mock document.createRange
-Object.defineProperty(document, 'createRange', {
+Object.defineProperty(document, "createRange", {
   writable: true,
   value: jest.fn(() => ({
     setStart: jest.fn(),
@@ -39,9 +39,9 @@ Object.defineProperty(document, 'createRange', {
     extractContents: jest.fn(() => document.createDocumentFragment()),
     deleteContents: jest.fn(),
     setStartAfter: jest.fn(),
-    commonAncestorContainer: document.createElement('div'),
-    surroundContents: jest.fn()
-  }))
+    commonAncestorContainer: document.createElement("div"),
+    surroundContents: jest.fn(),
+  })),
 });
 
 // Mock alert and prompt

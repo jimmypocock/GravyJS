@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Toolbar = ({
   onBold,
@@ -12,7 +12,7 @@ const Toolbar = ({
   showSnippets,
   variablePrefix,
   variableSuffix,
-  onKeyDown
+  onKeyDown,
 }) => {
   return (
     <div
@@ -84,7 +84,8 @@ const Toolbar = ({
         aria-label={`Insert variable placeholder using ${variablePrefix}${variableSuffix} format`}
         type="button"
       >
-        {variablePrefix}{variableSuffix}
+        {variablePrefix}
+        {variableSuffix}
       </button>
       <button
         onClick={onToggleSnippets}

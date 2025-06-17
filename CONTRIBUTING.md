@@ -34,6 +34,7 @@ By participating in this project, you agree to abide by our Code of Conduct (lin
 ## Bug Reports
 
 When reporting bugs, please include:
+
 - A clear description of the issue
 - Steps to reproduce
 - Expected vs actual behavior
@@ -43,6 +44,7 @@ When reporting bugs, please include:
 ## Feature Requests
 
 For feature requests, please:
+
 - Describe the feature clearly
 - Explain the use case
 - Consider backward compatibility

@@ -25,19 +25,19 @@ yarn add gravyjs
 ## 📖 Quick Start
 
 ```jsx
-import React, { useState, useRef } from 'react';
-import GravyJS from 'gravyjs';
-import 'gravyjs/dist/index.css';
+import React, { useState, useRef } from "react";
+import GravyJS from "gravyjs";
+import "gravyjs/dist/index.css";
 
 function App() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const editorRef = useRef(null);
 
   const snippets = [
     {
-      title: 'Greeting',
-      content: 'Hello [[name]], welcome to [[company]]!'
-    }
+      title: "Greeting",
+      content: "Hello [[name]], welcome to [[company]]!",
+    },
   ];
 
   return (
@@ -58,16 +58,16 @@ function App() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `initialValue` | `string` | `''` | Initial content of the editor |
-| `onChange` | `function` | `undefined` | Callback fired when content changes |
-| `snippets` | `array` | `[]` | Array of snippet objects |
-| `placeholder` | `string` | `'Start typing...'` | Placeholder text |
-| `className` | `string` | `''` | Custom CSS class |
-| `variablePrefix` | `string` | `'[['` | Start delimiter for variables |
-| `variableSuffix` | `string` | `']]'` | End delimiter for variables |
-| `onVariablePrompt` | `function` | `undefined` | Custom function to prompt for variable values |
+| Prop               | Type       | Default             | Description                                   |
+| ------------------ | ---------- | ------------------- | --------------------------------------------- |
+| `initialValue`     | `string`   | `''`                | Initial content of the editor                 |
+| `onChange`         | `function` | `undefined`         | Callback fired when content changes           |
+| `snippets`         | `array`    | `[]`                | Array of snippet objects                      |
+| `placeholder`      | `string`   | `'Start typing...'` | Placeholder text                              |
+| `className`        | `string`   | `''`                | Custom CSS class                              |
+| `variablePrefix`   | `string`   | `'[['`              | Start delimiter for variables                 |
+| `variableSuffix`   | `string`   | `']]'`              | End delimiter for variables                   |
+| `onVariablePrompt` | `function` | `undefined`         | Custom function to prompt for variable values |
 
 ### Snippet Object Structure
 
@@ -84,11 +84,11 @@ function App() {
 const editorRef = useRef();
 
 // Populate variables (prompts user for values)
-editorRef.current.populateVariables().then(result => {
+editorRef.current.populateVariables().then((result) => {
   if (result) {
-    console.log('Populated HTML:', result.html);
-    console.log('Plain text:', result.plainText);
-    console.log('Variables used:', result.variables);
+    console.log("Populated HTML:", result.html);
+    console.log("Plain text:", result.plainText);
+    console.log("Variables used:", result.variables);
   }
 });
 
@@ -96,7 +96,7 @@ editorRef.current.populateVariables().then(result => {
 const content = editorRef.current.getContent();
 
 // Set content programmatically
-editorRef.current.setContent('<p>New content</p>');
+editorRef.current.setContent("<p>New content</p>");
 
 // Get all variables in the current content
 const variables = editorRef.current.getAllVariables();
@@ -142,7 +142,7 @@ By default, GravyJS uses browser `prompt()` dialogs for variable input. You can 
 ```jsx
 const MyEditor = () => {
   const [showModal, setShowModal] = useState(false);
-  const [currentVariable, setCurrentVariable] = useState('');
+  const [currentVariable, setCurrentVariable] = useState("");
   const [resolve, setResolve] = useState(null);
 
   const handleVariablePrompt = (variableName, prefix, suffix) => {
@@ -162,7 +162,7 @@ const MyEditor = () => {
     <>
       <GravyJS onVariablePrompt={handleVariablePrompt} />
       {showModal && (
-        <VariableModal 
+        <VariableModal
           variableName={currentVariable}
           onSubmit={handleModalSubmit}
           onCancel={() => handleModalSubmit(null)}
@@ -182,9 +182,9 @@ if (result) {
   // Copy HTML with formatting
   await navigator.clipboard.write([
     new ClipboardItem({
-      'text/html': new Blob([result.html], { type: 'text/html' }),
-      'text/plain': new Blob([result.plainText], { type: 'text/plain' })
-    })
+      "text/html": new Blob([result.html], { type: "text/html" }),
+      "text/plain": new Blob([result.plainText], { type: "text/plain" }),
+    }),
   ]);
 }
 ```
@@ -194,6 +194,7 @@ if (result) {
 ### Setting Up the Demo
 
 1. **Clone and setup**:
+
 ```bash
 git clone https://github.com/yourusername/gravyjs.git
 cd gravyjs
@@ -201,6 +202,7 @@ npm install
 ```
 
 2. **Create demo environment**:
+
 ```bash
 mkdir demo
 cd demo
@@ -210,6 +212,7 @@ npm install --save-dev vite @vitejs/plugin-react
 ```
 
 3. **Link for development**:
+
 ```bash
 # From project root
 npm link
@@ -218,6 +221,7 @@ npm link gravyjs
 ```
 
 4. **Start demo server**:
+
 ```bash
 npm run dev
 ```
@@ -225,6 +229,7 @@ npm run dev
 ### Demo Features
 
 The demo includes:
+
 - Live variable delimiter configuration
 - Sample templates and snippets
 - Copy functionality testing
@@ -278,10 +283,10 @@ The demo includes:
 
 ```jsx
 // pages/editor.js
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const GravyJS = dynamic(() => import('gravyjs'), {
-  ssr: false // Disable SSR for the editor
+const GravyJS = dynamic(() => import("gravyjs"), {
+  ssr: false, // Disable SSR for the editor
 });
 
 export default function EditorPage() {
@@ -298,10 +303,10 @@ export default function EditorPage() {
 
 ## ⌨️ Keyboard Shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+B` | Bold |
-| `Ctrl+I` | Italic |
+| Shortcut | Action    |
+| -------- | --------- |
+| `Ctrl+B` | Bold      |
+| `Ctrl+I` | Italic    |
 | `Ctrl+U` | Underline |
 
 ## 🧪 Testing
@@ -352,15 +357,18 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ### Common Issues
 
 **Variables not working?**
+
 - Make sure you're using the correct delimiters
 - Check that variables have the correct `data-variable` attribute
 - Ensure CSS is properly imported
 
 **Cursor jumping around?**
+
 - This is fixed in the latest version using proper selection management
 - Make sure you're using the latest version of GravyJS
 
 **Copy not preserving formatting?**
+
 - Use the "Copy with Formatting" option
 - Ensure your target application supports rich text paste
 - Check browser clipboard permissions
@@ -378,6 +386,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📈 Roadmap
 
 - [ ] **v2.0.0**
+
   - [ ] TypeScript support
   - [ ] Plugin system
   - [ ] Table support

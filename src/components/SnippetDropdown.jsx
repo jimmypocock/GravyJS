@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-const SnippetDropdown = ({
-  snippets,
-  onInsertSnippet,
-  onClose,
-  isVisible
-}) => {
-  const [snippetSearch, setSnippetSearch] = useState('');
+const SnippetDropdown = ({ snippets, onInsertSnippet, onClose, isVisible }) => {
+  const [snippetSearch, setSnippetSearch] = useState("");
 
   // Filter snippets with error handling
-  const filteredSnippets = snippets.filter(snippet => {
+  const filteredSnippets = snippets.filter((snippet) => {
     try {
-      return snippet.title.toLowerCase().includes(snippetSearch.toLowerCase()) ||
-        snippet.content.toLowerCase().includes(snippetSearch.toLowerCase());
+      return (
+        snippet.title.toLowerCase().includes(snippetSearch.toLowerCase()) ||
+        snippet.content.toLowerCase().includes(snippetSearch.toLowerCase())
+      );
     } catch (error) {
-      console.error('Error filtering snippets:', error);
+      console.error("Error filtering snippets:", error);
       return false;
     }
   });
@@ -22,12 +19,12 @@ const SnippetDropdown = ({
   // Handle snippet insertion
   const handleSnippetClick = (snippet) => {
     onInsertSnippet(snippet);
-    setSnippetSearch('');
+    setSnippetSearch("");
   };
 
   // Handle keyboard navigation for snippets
   const handleSnippetKeyDown = (e, snippet) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleSnippetClick(snippet);
     }
@@ -37,34 +34,43 @@ const SnippetDropdown = ({
   useEffect(() => {
     const handleClickOutside = (event) => {
       try {
-        const snippetDropdown = event.target.closest('.gravy-snippets-dropdown');
-        const snippetButton = event.target.closest('.toolbar-btn[title="Insert Snippet"]');
+        const snippetDropdown = event.target.closest(
+          ".gravy-snippets-dropdown",
+        );
+        const snippetButton = event.target.closest(
+          '.toolbar-btn[title="Insert Snippet"]',
+        );
 
         if (!snippetDropdown && !snippetButton) {
           onClose();
         }
       } catch (error) {
-        console.error('Error handling click outside:', error);
+        console.error("Error handling click outside:", error);
       }
     };
 
     if (isVisible) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [isVisible, onClose]);
 
   // Reset search when dropdown closes
   useEffect(() => {
     if (!isVisible) {
-      setSnippetSearch('');
+      setSnippetSearch("");
     }
   }, [isVisible]);
 
   if (!isVisible) return null;
 
   return (
-    <div className="gravy-snippets-dropdown" role="listbox" aria-label="Available snippets">
+    <div
+      className="gravy-snippets-dropdown"
+      role="listbox"
+      aria-label="Available snippets"
+    >
       <input
         type="text"
         placeholder="Search snippets..."
@@ -88,7 +94,7 @@ const SnippetDropdown = ({
             >
               <div className="snippet-title">{snippet.title}</div>
               <div className="snippet-preview">
-                {snippet.content.replace(/<[^>]*>/g, '').substring(0, 50)}...
+                {snippet.content.replace(/<[^>]*>/g, "").substring(0, 50)}...
               </div>
             </div>
           ))

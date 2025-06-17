@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface Snippet {
   title: string;
@@ -38,7 +38,11 @@ export interface GravyJSProps {
   variableSuffix?: string;
 
   /** Custom function to prompt for variable values. If not provided, uses browser prompt() */
-  onVariablePrompt?: (variableName: string, variablePrefix: string, variableSuffix: string) => Promise<string | null> | string | null;
+  onVariablePrompt?: (
+    variableName: string,
+    variablePrefix: string,
+    variableSuffix: string,
+  ) => Promise<string | null> | string | null;
 }
 
 export interface GravyJSRef {
