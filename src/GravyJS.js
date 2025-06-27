@@ -1,11 +1,15 @@
+/* eslint-disable-next-line no-unused-vars */
 import React, {
   useState,
   useImperativeHandle,
   forwardRef,
   useCallback,
 } from "react";
+/* eslint-disable-next-line no-unused-vars */
 import Toolbar from "./components/Toolbar.jsx";
+/* eslint-disable-next-line no-unused-vars */
 import Editor from "./components/Editor.jsx";
+/* eslint-disable-next-line no-unused-vars */
 import SnippetDropdown from "./components/SnippetDropdown.jsx";
 import { useSelection } from "./hooks/useSelection.js";
 import { useFormatting } from "./hooks/useFormatting.js";
@@ -13,7 +17,7 @@ import { useVariables } from "./hooks/useVariables.js";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts.js";
 import { useClipboard } from "./hooks/useClipboard.js";
 import { useEditorContent } from "./hooks/useEditorContent.js";
-import "./GravyJS.css";
+// CSS import moved to separate styled component
 
 const GravyJS = forwardRef(
   (
@@ -32,7 +36,7 @@ const GravyJS = forwardRef(
     const [showSnippets, setShowSnippets] = useState(false);
 
     // Custom hooks
-    const { content, editorRef, updateContent, setEditorContent, getContent } =
+    const { editorRef, updateContent, setEditorContent, getContent } =
       useEditorContent(initialValue, onChange);
     const { currentRange, saveSelection, restoreSelection, handleMouseUp } =
       useSelection(editorRef);

@@ -1,12 +1,10 @@
 import React from "react";
 import {
   render,
-  screen,
-  fireEvent,
-  waitFor,
   act,
 } from "@testing-library/react";
-import GravyJS from "../GravyJS";
+/* eslint-disable-next-line no-unused-vars */
+import GravyJS from "../GravyJS.js";
 
 describe("GravyJS Custom Variable Prompt", () => {
   beforeEach(() => {

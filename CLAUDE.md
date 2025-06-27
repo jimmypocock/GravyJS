@@ -179,6 +179,7 @@ await navigator.clipboard.write([
 | `onChange`         | function | -       | Content change handler                    |
 | `placeholder`      | string   | -       | Editor placeholder                        |
 | `onVariablePrompt` | function | -       | Custom variable input function (optional) |
+| `noStyles`         | boolean  | `false` | Disable built-in CSS styles               |
 
 ### Architecture Benefits
 

@@ -24,6 +24,8 @@ yarn add gravyjs
 
 ## 📖 Quick Start
 
+### With Default Styles
+
 ```jsx
 import React, { useState, useRef } from "react";
 import GravyJS from "gravyjs";
@@ -54,6 +56,36 @@ function App() {
 }
 ```
 
+### Without Styles
+
+```jsx
+import React, { useState, useRef } from "react";
+import GravyJS from "gravyjs";
+// Don't import the CSS file
+
+function App() {
+  const [content, setContent] = useState("");
+  const editorRef = useRef(null);
+
+  return (
+    <GravyJS
+      ref={editorRef}
+      initialValue=""
+      onChange={setContent}
+      placeholder="Start typing..."
+      noStyles={true}  // Disable built-in styles
+    />
+  );
+}
+```
+
+Or use the unstyled export:
+
+```jsx
+import { GravyJSUnstyled } from "gravyjs";
+// No CSS needed
+```
+
 ## 📚 API Reference
 
 ### Props
@@ -68,6 +100,7 @@ function App() {
 | `variablePrefix`   | `string`   | `'[['`              | Start delimiter for variables                 |
 | `variableSuffix`   | `string`   | `']]'`              | End delimiter for variables                   |
 | `onVariablePrompt` | `function` | `undefined`         | Custom function to prompt for variable values |
+| `noStyles`         | `boolean`  | `false`             | Disable built-in CSS styles                   |
 
 ### Snippet Object Structure
 

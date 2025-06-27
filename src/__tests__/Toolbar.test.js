@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Toolbar from "../components/Toolbar";
+/* eslint-disable-next-line no-unused-vars */
+import Toolbar from "../components/Toolbar.jsx";
 
 describe("Toolbar", () => {
   const defaultProps = {

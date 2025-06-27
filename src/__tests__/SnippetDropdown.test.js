@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import SnippetDropdown from "../components/SnippetDropdown";
+/* eslint-disable-next-line no-unused-vars */
+import SnippetDropdown from "../components/SnippetDropdown.jsx";
 
 describe("SnippetDropdown", () => {
   const mockSnippets = [
@@ -48,7 +49,7 @@ describe("SnippetDropdown", () => {
     expect(screen.queryByText("Farewell")).not.toBeInTheDocument();
   });
 
-  test('shows "No snippets found" when no matches', () => {
+  test("shows \"No snippets found\" when no matches", () => {
     render(<SnippetDropdown {...defaultProps} />);
 
     const searchInput = screen.getByPlaceholderText("Search snippets...");

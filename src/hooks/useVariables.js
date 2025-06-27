@@ -19,7 +19,7 @@ export const useVariables = (
           "&": "&amp;",
           "<": "&lt;",
           ">": "&gt;",
-          '"': "&quot;",
+          "\"": "&quot;",
           "'": "&#39;",
         };
         return entities[char];

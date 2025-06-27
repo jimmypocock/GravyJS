@@ -38,7 +38,7 @@ const SnippetDropdown = ({ snippets, onInsertSnippet, onClose, isVisible }) => {
           ".gravy-snippets-dropdown",
         );
         const snippetButton = event.target.closest(
-          '.toolbar-btn[title="Insert Snippet"]',
+          ".toolbar-btn[title=\"Insert Snippet\"]",
         );
 
         if (!snippetDropdown && !snippetButton) {

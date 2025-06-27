@@ -43,6 +43,9 @@ export interface GravyJSProps {
     variablePrefix: string,
     variableSuffix: string,
   ) => Promise<string | null> | string | null;
+
+  /** Disable built-in styles */
+  noStyles?: boolean;
 }
 
 export interface GravyJSRef {
@@ -63,6 +66,10 @@ export interface GravyJSRef {
 }
 
 declare const GravyJS: React.ForwardRefExoticComponent<
+  GravyJSProps & React.RefAttributes<GravyJSRef>
+>;
+
+export const GravyJSUnstyled: React.ForwardRefExoticComponent<
   GravyJSProps & React.RefAttributes<GravyJSRef>
 >;
 
