@@ -20,7 +20,6 @@
     "dev": "concurrently --names \"gravyjs, demo\" --prefix-colors \"blue.bold,green.bold\"  \"npm run build:watch\" \"npm run dev:demo\"",
     "dev:demo": "cd demo && npm run dev"
   },
-  "dependencies": {},
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
@@ -72,7 +71,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jimmypocock/gravyjs.git"
+    "url": "git+https://github.com/jimmypocock/gravyjs.git"
   },
   "bugs": {
     "url": "https://github.com/jimmypocock/gravyjs/issues"
