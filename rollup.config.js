@@ -16,9 +16,8 @@ const config = [
         sourcemap: true,
       },
       {
-        file: "dist/index.es.js",
-        format: "esm",
-        exports: "named",
+        file: "dist/index.esm.js",
+        format: "es",
         sourcemap: true,
       },
     ],
@@ -26,13 +25,18 @@ const config = [
       peerDepsExternal(),
       resolve({
         browser: true,
+        preferBuiltins: false,
+        extensions: ['.mjs', '.js', '.jsx', '.json'],
+      }),
+      commonjs({
+        include: /node_modules/,
       }),
       babel({
         exclude: "node_modules/**",
         babelHelpers: "bundled",
         presets: ["@babel/preset-env", "@babel/preset-react"],
+        extensions: [".js", ".jsx"],
       }),
-      commonjs(),
       postcss({
         extract: true,
         minimize: true,

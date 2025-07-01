@@ -17,4 +17,6 @@ export default {
     "!src/index.js",
     "!src/setupTests.js",
   ],
+  // Enable manual mocks
+  automock: false,
 };
